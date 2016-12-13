@@ -62,17 +62,17 @@ void parsePerimeter(int optionLen, char **options) {
             break;
         case 1:
             result = math_perimeterSquare(strtod(options[0], NULL));
-            printf("%lf\n", result);
+            printf("Sqaure: %.2f\n", result);
             break;
         case 2:
             result = math_perimeterRectangle(strtod(options[0], NULL), strtod(options[1], NULL));
-            printf("%lf\n", result);
+            printf("Rectangle: %.2f\n", result);
             break;
         case 3:
             result = math_perimeterTriangle(strtod(options[0], NULL),
                                             strtod(options[1], NULL),
                                             strtod(options[2], NULL));
-            printf("%lf\n", result);
+            printf("Triangle: %.2f\n", result);
             break;
         default:
             printHelp(C_PERIMETER);
@@ -107,12 +107,15 @@ void draw1dGraph(Graph1D graph) {
         gtchar = '=';
     }
 
+    char ltstr[] = {ltchar, ltchar, ltchar, ltchar, '\0'};
+    char gtstr[] = {gtchar, gtchar, gtchar, gtchar, '\0'};
+
     printf("<");
     for (double curPos = *pos - 4; curPos < *pos + 5; curPos++) {
         if (curPos <= graph.point.position)
-            putchar(ltchar);
+            printf("%s", ltstr);
         else
-            putchar(gtchar);
+            printf("%s", gtstr);
 
         if (curPos == graph.point.position) {
             if (graph.point.open == 1)
@@ -124,10 +127,18 @@ void draw1dGraph(Graph1D graph) {
             putchar('|');
 
     }
-    putchar(gtchar);
+    printf("%s", gtstr);
     puts(">");
 
     // TODO: Render numbers under graph for context
+    printf("   ");
+    for (double curPos = *pos - 4; curPos < *pos + 5; curPos++) {
+        if (curPos + 1 < 0)
+            printf("%.1f ", curPos);
+        else
+            printf("%.1f  ", curPos);
+    }
+    printf("\n");
 }
 
 void parseGraph(int optionLen, char **options) {
